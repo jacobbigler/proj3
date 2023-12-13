@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Registration</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px; /* Adjust the width as needed */
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    select {
+      appearance: none;
+      background: white;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23444" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-position: right 10px top 50%, 0 0;
+      background-size: 24px auto, 100%;
+      background-repeat: no-repeat, repeat;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .form-group label {
+      width: 48%;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 48%;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    span {
+        color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/register" method="post" id="registration">
+    <div class="form-group">
+      <label for="first">First Name<span>*</span></label>
+      <label for="last">Last Name<span>*</span></label>
+    </div>
+    <div class="form-group">
+      <input type="text" id="first" name="first" required>
+      <input type="text" id="last" name="last" required>
+    </div>
+
+    <label for="email">Email<span>*</span></label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Password<span>*</span></label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirmPassword">Confirm Password<span>*</span></label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+    <label for="income">Monthly Income<span>*</span></label>
+    <select name="income" id="income">
+      <option value="" disabled selected>Select your income</option>
+      <option value="1">Less than $1,100/month</option>
+      <option value="2">$1,100 - $4,399/month</option>
+      <option value="3">$4,400 - $14,000/month</option>
+      <option value="4">More than $14,000/month</option>
+    </select>
+
+    <button type="submit">Create Account</button>
+    <a href="/" class="home-button">Go back to the home page</a>
+  </form>
+
+</body>
+</html>

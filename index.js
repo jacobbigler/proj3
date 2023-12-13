@@ -161,7 +161,7 @@ app.get("/login", (req, res) => { //shows login page
 
  app.post("/register", async (req, res) => {
   try {
-    const existingUser = await knex("login").where({ username: req.body.username }).first();
+    const existingUser = await knex("login").where({ email: req.body.username }).first();
 
     if (existingUser) {
       // Username already exists, return an error response
@@ -170,7 +170,7 @@ app.get("/login", (req, res) => { //shows login page
 
     // Username doesn't exist, proceed with registration
     await knex("login").insert({
-      username: req.body.username,
+      email: req.body.email,
       password: req.body.password
     });
 
@@ -232,3 +232,6 @@ app.get("/register", adminMiddleware, (req, res) => {
   res.render("register");
 });
 
+app.get("/transaction", (req, res) => {
+
+})

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Transaction</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px; /* Adjust the width as needed */
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    select {
+      appearance: none;
+      background: white;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23444" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-position: right 10px top 50%, 0 0;
+      background-size: 24px auto, 100%;
+      background-repeat: no-repeat, repeat;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .form-group label {
+      width: 48%;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 48%;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    span {
+        color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/transaction" method="post" id="transaction">
+    <label for="transactionType">Transaction Type<span>*</span></label>
+    <select id="transactionType" name="transactionType" required>
+        <option value="Auto">Auto</option>
+        <option value="Dine Out">Dine Out</option>
+        <option value="Donations">Donations</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Groceries">Groceries</option>
+        <option value="Home">Home</option>
+        <option value="Shopping">Shopping</option>
+    </select>
+    
+    <label for="expenseAmount">Enter Amount Spent ($)<span>*</span></label>
+    <input type="number" id="expenseAmount" name="expenseAmount" step="0.01" min="0" placeholder="0.00" required>
+
+
+    <button type="submit">Submit Transaction</button>
+    <a href="/" class="home-button">Go back to the home page</a>
+  </form>
+
+</body>
+</html>
