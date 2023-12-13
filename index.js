@@ -170,7 +170,7 @@ app.get("/login", (req, res) => { //shows login page
 
     // Username doesn't exist, proceed with registration
     await knex("login").insert({
-      username: req.body.username,
+      email: req.body.email,
       password: req.body.password
     });
 
@@ -233,5 +233,5 @@ app.get("/register", adminMiddleware, (req, res) => {
 });
 
 app.get("/transaction", (req, res) => {
-  
+
 })

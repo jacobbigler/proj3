@@ -83,7 +83,7 @@
 </head>
 <body>
 
-  <form action="/transaction" method="POST">
+  <form action="/transaction" method="post" id="transaction">
     <label for="transactionType">Transaction Type<span>*</span></label>
     <select id="transactionType" name="transactionType" required>
         <option value="Auto">Auto</option>
@@ -100,6 +100,7 @@
 
 
     <button type="submit">Submit Transaction</button>
+    <a href="/" class="home-button">Go back to the home page</a>
   </form>
 
 </body>
