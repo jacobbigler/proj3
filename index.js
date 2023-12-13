@@ -161,7 +161,7 @@ app.get("/login", (req, res) => { //shows login page
 
  app.post("/register", async (req, res) => {
   try {
-    const existingUser = await knex("login").where({ username: req.body.username }).first();
+    const existingUser = await knex("login").where({ email: req.body.username }).first();
 
     if (existingUser) {
       // Username already exists, return an error response
