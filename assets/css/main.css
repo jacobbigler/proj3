@@ -38,6 +38,86 @@
   object-fit: cover; /* Ensure the image covers the specified dimensions */
 }
 
+/* Add styles for the allocated amounts */
+.allocation-info p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Add style for the investing tips */
+#investtips {
+  font-style: italic;
+}
+
+/* Style for the options container */
+.options-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the top */
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.option {
+  flex-basis: calc(33.33% - 20px); /* Adjust this value to change the gap between options */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.option h3 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.option img {
+  width: 100%;
+  height: 200px; /* Set a fixed height for the images */
+  object-fit: cover;
+}
+
+.section-header2 {
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+.section-header2 h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  
+}
+
+.section-header2 h2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--color-primary);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.section-header2 p {
+  margin-bottom: 0;
+  color: #6f6f6f;
+}
+
+.section-header img {
+  width: 30%;
+  height: 200px; /* Set a fixed height for the images */
+}
+
+/** THIS IS WERE THE ACTUAL CSS STARTSSSSS
+
+
+**/
+
 body {
   font-family: var(--font-default);
   color: var(--color-default);
