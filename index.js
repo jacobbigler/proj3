@@ -189,6 +189,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//transaction page, only available to those who are logged in
 app.get("/transaction", authenticateMiddleware, (req, res) => {
   res.render("transaction");
 });
