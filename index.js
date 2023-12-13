@@ -178,7 +178,7 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     // Check if the provided credentials match the admin credentials
-    if (username === 'admin' && password === 'intexfun') {
+    if (email === 'admin' && password === 'intexfun') {
       // Set flags in the session to identify the user as an admin and authenticated
       req.session.admin = true;
       req.session.authenticated = true;
@@ -208,6 +208,10 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/transaction", (req, res) => {
+  res.render("transaction");
+})
+
 //to logout and invalidate the authentication
 app.get("/logout", (req, res) => {
   req.session.destroy(err => {
@@ -217,8 +221,4 @@ app.get("/logout", (req, res) => {
       res.redirect('/');
     }
   });
-})
-
-app.get("/transaction", (req, res) => {
-
 })
