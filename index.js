@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 //use the session
 app.use(
   session({
-    secret: 'intex',
+    secret: 'proj3',
     resave: true,
     saveUninitialized: true,
   })
@@ -77,16 +77,14 @@ app.listen(port, () => console.log("Server is running."));
 const knex = require("knex")({
     client: "pg",
     connection: { //RDS is for connecting to the DB in Elastic Beanstalk
-        host: process.env.RDS_HOSTNAME || ENV_VARIABLES.dbHost,
-        user: process.env.RDS_USERNAME || ENV_VARIABLES.dbUser,
-        password: process.env.RDS_PASSWORD || ENV_VARIABLES.dbPassword,
-        database: process.env.RDS_DB_NAME || ENV_VARIABLES.dbName,
+        host: process.env.RDS_HOSTNAME,
+        user: process.env.RDS_USERNAME || "project3",
+        password: process.env.RDS_PASSWORD || "password123",
+        database: process.env.RDS_DB_NAME || budgetbuddy,
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
 })
-
-//GET requests below:
 
 // Function to get unique user IDs
 async function getUniqueAndSortedUserIds() {
@@ -134,13 +132,15 @@ async function fetchSurveyResults(userId) {
   return query;
 }
 
+//Get requests below:
+
 // Shows landing page
 app.get("/", (req, res) => {
   res.render('index');
 });
 
 // Shows the register page
-app.get("/register", adminMiddleware, (req, res) => {
+app.get("/register", (req, res) => {
   res.render("register");
 });
 
@@ -160,7 +160,7 @@ app.post("/register", async (req, res) => {
       password: req.body.password
     });
 
-    res.redirect("/register");
+    res.redirect("/login");
 
   } catch (err) {
     console.error(err);
@@ -177,19 +177,10 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check if the provided credentials match the admin credentials
-    if (email === 'admin' && password === 'intexfun') {
-      // Set flags in the session to identify the user as an admin and authenticated
-      req.session.admin = true;
-      req.session.authenticated = true;
-
-      // Redirect to the admin dashboard or another admin-specific page
-      return res.redirect("/");
-    }
-
     // Query the database to get user information
     const user = await knex("login").where({ email }).first();
 
+    
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
