@@ -134,38 +134,24 @@ async function fetchSurveyResults(userId) {
   return query;
 }
 
-app.get("/", (req, res) => { //shows landing page
+// Shows landing page
+app.get("/", (req, res) => {
   res.render('index');
-    });
-
-app.get("/login", (req, res) => { //shows login page
-  res.render("login");
 });
 
-//gets page full of all accounts created
- app.get("/usernames", adminMiddleware, (req, res) => {
-  knex.select().from("login").then(userInput => {
-    res.render("usernames", {myuser: userInput});
-  })
- });
-
- //deletes chosen account
- app.post("/deleteUser/:id", (req, res) => {
-  knex("login").where("username",req.params.id).del().then( myuser => {
-    res.redirect("/usernames");
- }).catch( err => {
-    console.log(err);
-    res.status(500).json({err});
- });
+// Shows the register page
+app.get("/register", adminMiddleware, (req, res) => {
+  res.render("register");
 });
 
- app.post("/register", async (req, res) => {
+// Gets inputs from the register page
+app.post("/register", async (req, res) => {
   try {
     const existingUser = await knex("login").where({ email: req.body.username }).first();
 
     if (existingUser) {
-      // Username already exists, return an error response
-      return res.status(400).json({ error: 'Username already exists' });
+      // If email already exists, return an error response
+      return res.status(400).json({ error: 'Email address is already in use' });
     }
 
     // Username doesn't exist, proceed with registration
@@ -182,9 +168,14 @@ app.get("/login", (req, res) => { //shows login page
   }
 });
 
+// Shows the login page
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 app.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     // Check if the provided credentials match the admin credentials
     if (username === 'admin' && password === 'intexfun') {
@@ -197,15 +188,15 @@ app.post("/login", async (req, res) => {
     }
 
     // Query the database to get user information
-    const user = await knex("login").where({ username }).first();
+    const user = await knex("login").where({ email }).first();
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid username or password' });
+      return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Compare the provided password with the stored password from the database
     if (password !== user.password) {
-      return res.status(401).json({ error: 'Invalid username or password' });
+      return res.status(401).json({ error: 'Invalid email or password' });
     };
 
     req.session.authenticated = true;
@@ -227,10 +218,6 @@ app.get("/logout", (req, res) => {
     }
   });
 })
-
-app.get("/register", adminMiddleware, (req, res) => {
-  res.render("register");
-});
 
 app.get("/transaction", (req, res) => {
 
