@@ -1,0 +1,16 @@
+<label><b>User Information:</b></label>
+<br><br>
+<table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
+  <thead style="background-color: cornflowerblue; color: white;">
+    <tr>
+      <th style="text-align: left;">Type</th>
+      <th style="text-align: left;">Amount</th>
+    </tr>
+  </thead>
+  <tbody style="font-family: Arial; font-size: 9pt;">
+   <% for (let iCount = 0; iCount < myuser.length; iCount++) { %>
+      <tr>
+        <td><%= myuser[iCount].transaction_category %></td>
+        <td><%= myuser[iCount].amount %></td>
+      </tr>
+   <% } %>

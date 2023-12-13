@@ -84,44 +84,6 @@ async function getUniqueAndSortedUserIds() {
   return sortedUserIds;
 }
 
-// Extract the common logic for fetching survey results
-async function fetchSurveyResults(userId) {
-  let query = knex.select(
-    "u.user_id",
-    "u.timestamp",
-    "u.city",
-    "u.age",
-    "u.gender",
-    "u.relationship_status",
-    "u.occupation_status",
-    "oa.organization_affiliation",
-    "u.social_media_use",
-    "smp.social_media_platform",
-    "u.time_usage",
-    "r.use_without_purpose",
-    "r.restless_without_social_media",
-    "r.distracted_by_social_media",
-    "r.easily_distracted",
-    "r.bothered_by_worries",
-    "r.concentration_difficulty",
-    "r.compare_self_to_others",
-    "r.opinions_about_comparisons",
-    "r.seek_validation",
-    "r.feel_depressed",
-    "r.daily_activity_interest_fluctuations",
-    "r.sleep_issues"
-  ).from({ u: "user_inputs" })
-    .join({ r: "ratings" }, "u.user_id", "=", "r.user_id")
-    .join({ smp: "social_media_platforms" }, "u.user_id", "=", "smp.user_id")
-    .join({ oa: "organization_affiliations" }, "u.user_id", "=", "oa.user_id");
-
-  if (userId !== 'all') {
-    query = query.where("u.user_id", userId);
-  }
-
-  return query;
-}
-
 //Get requests below:
 
 // Shows landing page
