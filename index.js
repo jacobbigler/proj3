@@ -180,7 +180,7 @@ app.post("/login", async (req, res) => {
     // Query the database to get user information
     const user = await knex("login").where({ email }).first();
 
-    
+
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
@@ -199,7 +199,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/transaction", (req, res) => {
+app.get("/transaction", authenticateMiddleware, (req, res) => {
   res.render("transaction");
 })
 
