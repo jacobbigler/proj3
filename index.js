@@ -232,3 +232,6 @@ app.get("/register", adminMiddleware, (req, res) => {
   res.render("register");
 });
 
+app.get("/transaction", (req, res) => {
+  
+})
