@@ -19,16 +19,6 @@ const authenticateMiddleware = (req, res, next) => {
   }
 };
 
-const adminMiddleware = (req, res, next) => {
-  if (req.session && req.session.admin) {
-    // User is authenticated, allow access to the next middleware or route
-    next();
-  } else {
-    // User is not authenticated, redirect to a login page or send an error response
-    res.status(401).json({ error: 'Admin authentication required' });
-  }
-};
-
 //Define & Configure Express:
 let express = require("express");
 let app = express();
