@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
+      background-color: #008374;
       margin: 0;
       display: flex;
       justify-content: center;
@@ -62,7 +62,7 @@
     }
 
     button {
-      background-color: #4caf50;
+      background-color: #008374;
       color: #fff;
       padding: 12px;
       border: none;
@@ -84,6 +84,7 @@
 <body>
 
   <form action="/transaction" method="post" id="transaction">
+    <h1>Add a Transaction</h1>
     <label for="transactionType">Transaction Type<span>*</span></label>
     <select id="transactionType" name="transactionType" required>
         <option value="Auto">Auto</option>
@@ -99,7 +100,7 @@
     <input type="number" id="expenseAmount" name="expenseAmount" step="0.01" min="0" placeholder="0.00" required>
 
 
-    <button type="submit">Submit Transaction</button>
+    <button type="submit">Submit Transaction</button><br>
     <a href="/" class="home-button">Go back to the home page</a>
   </form>
 
