@@ -154,7 +154,16 @@ app.post("/login", async (req, res) => {
 //transaction page, only available to those who are logged in
 app.get("/transaction", authenticateMiddleware, (req, res) => {
   res.render("transaction");
-})
+});
+
+app.post("/transaction", async (req, res) => {
+  await knex("transactions").insert({
+    transaction_type_id: req.body.transactionType,
+    amount: req.body.expenseAmount
+  })
+  res.redirect("/");
+});
+
 
 //to logout and invalidate the authentication
 app.get("/logout", (req, res) => {
@@ -165,4 +174,4 @@ app.get("/logout", (req, res) => {
       res.redirect('/');
     }
   });
-})
+});
