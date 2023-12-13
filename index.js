@@ -86,8 +86,6 @@ const knex = require("knex")({
     }
 })
 
-//GET requests below:
-
 // Function to get unique user IDs
 async function getUniqueAndSortedUserIds() {
   const userIds = await knex.select('user_id').from('user_inputs');
@@ -134,13 +132,15 @@ async function fetchSurveyResults(userId) {
   return query;
 }
 
+//Get requests below:
+
 // Shows landing page
 app.get("/", (req, res) => {
   res.render('index');
 });
 
 // Shows the register page
-app.get("/register", adminMiddleware, (req, res) => {
+app.get("/register", (req, res) => {
   res.render("register");
 });
 
@@ -160,7 +160,7 @@ app.post("/register", async (req, res) => {
       password: req.body.password
     });
 
-    res.redirect("/register");
+    res.redirect("/login");
 
   } catch (err) {
     console.error(err);
@@ -177,19 +177,10 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check if the provided credentials match the admin credentials
-    if (email === 'admin' && password === 'intexfun') {
-      // Set flags in the session to identify the user as an admin and authenticated
-      req.session.admin = true;
-      req.session.authenticated = true;
-
-      // Redirect to the admin dashboard or another admin-specific page
-      return res.redirect("/");
-    }
-
     // Query the database to get user information
     const user = await knex("login").where({ email }).first();
 
+    
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
