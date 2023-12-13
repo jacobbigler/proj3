@@ -34,7 +34,7 @@ let express = require("express");
 let app = express();
 
 // Serve static files from the "content" directory
-app.use(express.static('content'));
+app.use(express.static('assets'));
 
 // Parse incoming requests:
 app.use(express.urlencoded({ extended: true }));
