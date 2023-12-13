@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 //use the session
 app.use(
   session({
-    secret: 'intex',
+    secret: 'proj3',
     resave: true,
     saveUninitialized: true,
   })
@@ -77,10 +77,10 @@ app.listen(port, () => console.log("Server is running."));
 const knex = require("knex")({
     client: "pg",
     connection: { //RDS is for connecting to the DB in Elastic Beanstalk
-        host: process.env.RDS_HOSTNAME || ENV_VARIABLES.dbHost,
-        user: process.env.RDS_USERNAME || ENV_VARIABLES.dbUser,
-        password: process.env.RDS_PASSWORD || ENV_VARIABLES.dbPassword,
-        database: process.env.RDS_DB_NAME || ENV_VARIABLES.dbName,
+        host: process.env.RDS_HOSTNAME,
+        user: process.env.RDS_USERNAME || "project3",
+        password: process.env.RDS_PASSWORD || "password123",
+        database: process.env.RDS_DB_NAME || budgetbuddy,
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
