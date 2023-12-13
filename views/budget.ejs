@@ -75,19 +75,19 @@
               image: 'https://www.bioworld.com/ext/resources/Stock-images/Money/stock-prices-up.png?1588794938', // Replace with your image URL
               title: 'Stocks',
               description: 'Includes buying stocks like the S&P 500',
-              link: 'https://www.example.com/page1' // Replace with your destination URL for Option 1
+              link: '/stocks.html' // Replace with your destination URL for Option 1
             },
             {
               image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', // Replace with your image URL
               title: 'Real Estate',
               description: 'Highest return on investment if done right',
-              link: 'https://www.example.com/page2' // Replace with your destination URL for Option 2
+              link: '/realestate.html' // Replace with your destination URL for Option 2
             },
             {
               image: 'https://image.cnbcfm.com/api/v1/image/106539503-1589561901488gettyimages-580502927.jpeg?v=1687888038', // Replace with your image URL
               title: 'High-Yield saving accounts',
               description: 'Provides higher rates of return than traditional checking accounts',
-              link: 'https://www.example.com/page3' // Replace with your destination URL for Option 3
+              link: '/savingaccount.html' // Replace with your destination URL for Option 3
             }
           ];
     
@@ -102,6 +102,7 @@
     
             var imageElement = document.createElement('img');
             imageElement.src = option.image;
+            imageElement.classList.add('option-image'); // Add a class for styling
     
             var titleElement = document.createElement('h3');
             titleElement.textContent = option.title;
@@ -161,7 +162,17 @@
   </header><!-- End Header -->
   <!-- End Header -->
 
-<br><br><br><br><br><br><br>
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header2">
+        <h2>Our Budgeting Tool</h2>
+        <p>With our intuitive budgeting tool, you can effortlessly create, track, and manage your budget in a personalized and efficient manner. Whether you're aiming to save for a dream vacation, pay off debt, or simply gain better control over your spending, our tool provides you with the flexibility to tailor your budget to your unique lifestyle and aspirations.
+
+        </p>
+      </div>
+</div>
+</section>
 
 <section class="services sections-bg">
    <div class="container" data-aos="fade-up"> 
@@ -175,17 +186,19 @@
 
     <br><br>
     <div id="allocationResult">
-    <p id="saving"></p>
-    <p id="spending"></p>
-    <p id="investing"></p>
-    <br><br>
-    <p id="investtips"></p>
-    </div>
-
-    <div id="optionsContainer"></div>
+        <div class="allocation-info">
+          <p id="saving"></p>
+          <p id="spending"></p>
+          <p id="investing"></p>
+          <br><br>
+          <p id="investtips"></p>
+        </div>
+      </div>
+      
+      <div class="options-wrapper" id="optionsContainer"></div>
+      
 </section>
 
-<br><br><br><br><br><br><br>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
