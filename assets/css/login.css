@@ -59,7 +59,7 @@ html {
   }
   
   #login-form {
-    align-self: flex-start;
+    align-self: center;
     display: grid;
     justify-items: center;
     align-items: center;
