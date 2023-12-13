@@ -69,7 +69,12 @@
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="login">Log In</a></li>
+          <% if (authenticated) { %>
+            <li><a href="logout">Log Out</a></li>
+            <% } else { %>
+              <li><a href="register">Register</a></li>
+              <li><a href="login">Log In</a></li>
+            <% } %>
         </ul>
       </nav><!-- .navbar -->
 
@@ -457,7 +462,7 @@
                 <i class="bi bi-phone flex-shrink-0"></i>
                 <div>
                   <h4>Call:</h4>
-                  <p>+1 5589 55488 55</p>
+                  <p>+1 (208) 270-6599</p>
                 </div>
               </div><!-- End Info Item -->
 
