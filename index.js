@@ -199,9 +199,9 @@ app.post("/transaction", async (req, res) => {
     transaction_type_id: req.body.transactionType,
     amount: req.body.expenseAmount
   })
+  res.redirect("/");
 });
 
-  res.redirect("/login");
 
 //to logout and invalidate the authentication
 app.get("/logout", (req, res) => {
