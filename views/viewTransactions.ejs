@@ -12,6 +12,8 @@
     label {
       display: block;
       font-weight: bold;
+      font-size: 22px;
+      color: #FFFFFF;
     }
     table {
       width: 100%;
@@ -28,9 +30,30 @@
     td {
       padding: 8px;
     }
+
+      a {
+    color: #FFD700; /* Golden color for the link */
+    text-decoration: none; /* Remove underline by default */
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
+    font-weight: bold; /* Make the text bold */
+  }
+
+  /* Change color on hover */
+  a:hover {
+    color: #FFA500; /* Change to a slightly different shade on hover */
+  }
+
+  /* Change color when active (while clicking) */
+  a:active {
+    color: #FF6347; /* Change to a different color when clicked */
+  }
   </style>
 </head>
 <body>
+   <a>Go back to home</a>
+
+
+  <br>
   <label><b>User Information:</b></label>
 
   <br>
