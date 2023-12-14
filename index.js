@@ -130,6 +130,7 @@ app.post("/register", async (req, res) => {
       })
 
       await trx("users").insert({
+        email: req.body.email,
         first_name: req.body.first,
         last_name: req.body.last,
         income_id: req.body.income
