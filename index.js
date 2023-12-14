@@ -70,7 +70,7 @@ const knex = require("knex")({
         host: process.env.RDS_HOSTNAME,
         user: process.env.RDS_USERNAME || "project3",
         password: process.env.RDS_PASSWORD || "password123",
-        database: process.env.RDS_DB_NAME || budgetbuddy,
+        database: process.env.RDS_DB_NAME || ebdb,
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
