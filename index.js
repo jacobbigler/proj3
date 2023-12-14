@@ -103,7 +103,7 @@ app.get("/register", (req, res) => {
 // Gets inputs from the register page
 app.post("/register", async (req, res) => {
   try {
-    const existingUser = await knex("login").where({ email: req.body.username }).first();
+    const existingUser = await knex("login").where({ email: req.body.email }).first();
 
     if (existingUser) {
       // If email already exists, return an error response
@@ -147,6 +147,11 @@ app.post("/login", async (req, res) => {
     };
 
     req.session.authenticated = true;
+    req.session.userID = knex
+      .select("u.user_id")
+      .from({u: "users"})
+      .join({l: "login"}, "u.email", "=", "l.email")
+      .where("u.email", "=", email);
 
     res.redirect("/")
   } catch (err) {
@@ -179,3 +184,14 @@ app.get("/logout", (req, res) => {
     }
   });
 });
+
+//Page to view all transactions based on user id
+app.post("/viewTransactions"), authenticateMiddleware, (req, res) => {
+  knex.select("u.user_id", "t.amount", "tt.transaction_category"
+    .from({u: "user_id"})
+    .join({t: "transactions"}, "t.user_id", "=", "u.user_id")
+    .join({tt: "transaction_type"}, "tt.transaction_type_id", "=", "t.transaction_type_id")
+    .where("u.user_id", "=", req.session.userID)
+
+  )
+}
