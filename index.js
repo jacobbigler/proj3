@@ -99,7 +99,7 @@ app.get("/register", (req, res) => {
 // Gets inputs from the register page
 app.post("/register", async (req, res) => {
   try {
-    const existingUser = await knex("login").where({ email: req.body.username }).first();
+    const existingUser = await knex("login").where({ email: req.body.email }).first();
 
     if (existingUser) {
       // If email already exists, return an error response
