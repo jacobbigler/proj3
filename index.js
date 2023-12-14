@@ -134,7 +134,7 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     // Query the database to get user information
-    const user = await knex("login").where({ email: email }).first();
+    const user = await knex("login").where("email", "=", email).first();
 
     if (!user || password !== user.password) {
       return res.status(401).json({ error: 'Invalid email or password' });
