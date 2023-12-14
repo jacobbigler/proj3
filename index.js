@@ -163,7 +163,6 @@ app.post("/login", async (req, res) => {
     const userID = await knex
       .select("u.user_id")
       .from({ u: "users" })
-      .join({ l: "login" }, "u.email", "=", "l.email")
       .where("u.email", "=", email)
       .first();
 
