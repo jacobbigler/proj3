@@ -188,7 +188,7 @@ app.get("/logout", (req, res) => {
 });
 
 //Page to view all transactions based on user id
-app.post("/viewTransactions", authenticateMiddleware, async (req, res) => {
+app.get("/viewTransactions", authenticateMiddleware, async (req, res) => {
   try {
     const transactions = await knex
       .select("u.user_id", "t.amount", "tt.transaction_category")
