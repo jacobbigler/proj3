@@ -95,6 +95,19 @@ app.get("/budget", (req, res) => {
   res.render('budget');
 });
 
+app.get("/stocks", (req, res) => {
+  res.render('stocks');
+});
+
+app.get("/realestate", (req, res) => {
+  res.render('realestate');
+});
+
+app.get("/savingaccount", (req, res) => {
+  res.render('savingaccount');
+});
+
+
 // Shows the register page
 app.get("/register", (req, res) => {
   res.render("register");
