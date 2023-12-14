@@ -116,21 +116,23 @@ app.get("/register", (req, res) => {
 // Gets inputs from the register page
 app.post("/register", async (req, res) => {
   try {
-    await knex.transaction(async (trx) => { //we put everything into a transaction so that if there are any errors, we won't have unfinished data
+    await knex.transaction(async (trx) => {
       const existingUser = await trx("login").where({ email: req.body.email }).first();
 
       if (existingUser) {
-        // If email already exists, return an error response
         return res.status(400).json({ error: 'Email address is already in use' });
       }
 
       // Username doesn't exist, proceed with registration
-      await trx("login").insert({
+      const [userObject] = await trx("login").insert({
         email: req.body.email,
         password: req.body.password
-      });
+      }).returning(['user_id']);  // Assuming the database returns the inserted row
+
+      const user_id = userObject.user_id; //have to insert user id into the db
 
       await trx("users").insert({
+        user_id: user_id,
         first_name: req.body.first,
         last_name: req.body.last,
         income_id: req.body.income
