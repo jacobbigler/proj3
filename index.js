@@ -116,26 +116,34 @@ app.get("/register", (req, res) => {
 // Gets inputs from the register page
 app.post("/register", async (req, res) => {
   try {
-    const existingUser = await knex("login").where({ email: req.body.email }).first();
+    await knex.transaction(async (trx) => { //we put everything into a transaction so that if there are any errors, we won't have unfinished data
+      const existingUser = await trx("login").where({ email: req.body.email }).first();
 
-    if (existingUser) {
-      // If email already exists, return an error response
-      return res.status(400).json({ error: 'Email address is already in use' });
-    }
+      if (existingUser) {
+        // If email already exists, return an error response
+        return res.status(400).json({ error: 'Email address is already in use' });
+      }
 
-    // Username doesn't exist, proceed with registration
-    await knex("login").insert({
-      email: req.body.email,
-      password: req.body.password
+      // Username doesn't exist, proceed with registration
+      await trx("login").insert({
+        email: req.body.email,
+        password: req.body.password
+      });
+
+      await trx("users").insert({
+        first_name: req.body.first,
+        last_name: req.body.last,
+        income_id: req.body.income
+      });
+
+      res.redirect("/login");
     });
-
-    res.redirect("/login");
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 // Shows the login page
 app.get("/login", (req, res) => {
