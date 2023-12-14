@@ -47,10 +47,40 @@
   a:active {
     color: #FFD700; /* Change to a different color when clicked */
   }
+
+  /* Styling the anchor tag */
+a.arrow-link {
+  color: #FFD700; /* Golden color for the link */
+  text-decoration: none; /* Remove underline by default */
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
+  font-weight: bold; /* Make the text bold */
+  position: relative; /* Enable positioning of the arrow */
+}
+
+/* Styling the arrow */
+.arrow {
+  margin-right: 5px; /* Adjust the space between text and arrow */
+}
+
+/* Creating an arrow using CSS */
+.arrow::before {
+  content: '\2190'; /* Unicode for left arrow */
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out; /* Smooth transition for the arrow */
+}
+
+/* Rotate arrow on hover */
+a.arrow-link:hover .arrow::before {
+  transform: rotate(-90deg); /* Rotate the arrow -90 degrees on hover */
+}
+
   </style>
 </head>
 <body>
-   <a href="/">Go back to home</a>
+   
+   <a href="/" class="arrow-link"><span class="arrow">&larr;</span>Go back to home</a>
+
 
 
   <br><br><br>
