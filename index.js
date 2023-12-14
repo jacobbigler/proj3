@@ -129,15 +129,11 @@ app.post("/register", async (req, res) => {
         password: req.body.password
       })
 
-      const user_id = userObject.user_id; //have to insert user id into the db
-
-      const [userObject] = await trx("users").insert({
-        user_id: user_id,
+      await trx("users").insert({
         first_name: req.body.first,
         last_name: req.body.last,
         income_id: req.body.income
-      }).returning(['user_id']);  // Assuming the database returns the inserted row
-
+      });
       res.redirect("/login");
     });
   } catch (err) {
@@ -193,7 +189,8 @@ app.get("/transaction", authenticateMiddleware, (req, res) => {
 app.post("/transaction", async (req, res) => {
   await knex("transactions").insert({
     transaction_type_id: req.body.transactionType,
-    amount: req.body.expenseAmount
+    amount: req.body.expenseAmount,
+    user_id: req.session.userID
   })
   res.redirect("/");
 });
