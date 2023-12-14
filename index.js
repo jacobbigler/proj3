@@ -91,6 +91,10 @@ app.get("/", (req, res) => {
   res.render('index');
 });
 
+app.get("/budget", (req, res) => {
+  res.render('budget');
+});
+
 // Shows the register page
 app.get("/register", (req, res) => {
   res.render("register");
