@@ -134,26 +134,28 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     // Query the database to get user information
-    const user = await knex("login").where({ email }).first();
+    const user = await knex("login").where("email", "=", email).first();
 
-
-    if (!user) {
+    if (!user || password !== user.password) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // Compare the provided password with the stored password from the database
-    if (password !== user.password) {
-      return res.status(401).json({ error: 'Invalid email or password' });
-    };
+    // Query the database to get user ID associated with the email
+    const userID = await knex
+      .select("u.user_id")
+      .from({ u: "users" })
+      .join({ l: "login" }, "u.email", "=", "l.email")
+      .where("u.email", "=", email)
+      .first();
+
+    if (!userID) {
+      return res.status(401).json({ error: 'User ID not found' });
+    }
 
     req.session.authenticated = true;
-    req.session.userID = knex
-      .select("u.user_id")
-      .from({u: "users"})
-      .join({l: "login"}, "u.email", "=", "l.email")
-      .where("u.email", "=", email);
+    req.session.userID = userID.user_id;
 
-    res.redirect("/")
+    res.redirect("/");
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -186,12 +188,18 @@ app.get("/logout", (req, res) => {
 });
 
 //Page to view all transactions based on user id
-app.post("/viewTransactions"), authenticateMiddleware, (req, res) => {
-  knex.select("u.user_id", "t.amount", "tt.transaction_category"
-    .from({u: "user_id"})
-    .join({t: "transactions"}, "t.user_id", "=", "u.user_id")
-    .join({tt: "transaction_type"}, "tt.transaction_type_id", "=", "t.transaction_type_id")
-    .where("u.user_id", "=", req.session.userID)
+app.get("/viewTransactions", authenticateMiddleware, async (req, res) => {
+  try {
+    const transactions = await knex
+      .select("u.user_id", "t.amount", "tt.transaction_category")
+      .from({ u: "users" })
+      .join({ t: "transactions" }, "t.user_id", "=", "u.user_id")
+      .join({ tt: "transaction_type" }, "tt.transaction_type_id", "=", "t.transaction_type_id")
+      .where("u.user_id", "=", req.session.userID);
 
-  )
-}
+    res.render("viewTransactions", { myuser: transactions });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
