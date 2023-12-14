@@ -124,19 +124,19 @@ app.post("/register", async (req, res) => {
       }
 
       // Username doesn't exist, proceed with registration
-      const [userObject] = await trx("login").insert({
+      await trx("login").insert({
         email: req.body.email,
         password: req.body.password
-      }).returning(['user_id']);  // Assuming the database returns the inserted row
+      })
 
       const user_id = userObject.user_id; //have to insert user id into the db
 
-      await trx("users").insert({
+      const [userObject] = await trx("users").insert({
         user_id: user_id,
         first_name: req.body.first,
         last_name: req.body.last,
         income_id: req.body.income
-      });
+      }).returning(['user_id']);  // Assuming the database returns the inserted row
 
       res.redirect("/login");
     });
